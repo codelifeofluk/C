@@ -1,1 +1,51 @@
+//struct ListNode* mergeNodes(struct ListNode* head){
+struct ListNode *pre = head;                               //creat two pointers
+struct ListNode *curr = pre -> next;
+while(1)
+{
+    while(curr -> val != 0)
+    {
+        pre -> val += curr -> val;
+        curr = curr -> next;
+    }
+    if(curr -> next == NULL)
+    {
+        pre -> next =NULL;
+        break;
+    }
+    else
+    {
+        pre -> next = curr;
+        pre = curr;
+        curr = curr -> next;
+    }
+}
+return head;
+}
 
+
+
+struct ListNode* mergeNodes(struct ListNode* head){
+struct ListNode *slow = head;
+struct ListNode *fast = head -> next;
+int sum = 0;
+while(fast != NULL)
+{
+    if(sum == 0)
+    {
+        slow = slow -> next;
+    }
+    if(fast -> val != 0)
+    {
+        sum += fast -> val;
+    }
+    else
+    {
+        slow -> val = sum;
+        sum = 0;
+    }
+    fast = fast -> next;
+}
+slow -> next = NULL;
+return head -> next;
+}
